@@ -20,8 +20,8 @@ set(HEADERS
 
 set(UIS
     ui_mainwindow.h
-    ui_aboutdialog.h
-    ui_connect.h)
+    ui_connect.h
+)
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${UIS})
 target_include_directories(${PROJECT_NAME} PUBLIC include ui)
