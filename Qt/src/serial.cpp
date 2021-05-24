@@ -45,7 +45,21 @@ void Serial::disconnect() {
 
 
 void Serial::readFromPort() {
-    qDebug() << this->device->readLine();
+    // qDebug() << this->device->readAll();
+    static std::string buffer;
+
+    buffer.append(this->device->readAll().toStdString());
+
+    int separator = buffer.find("\r\n");
+
+    while(separator != std::string::npos) {
+        std::string data = buffer.substr(0, separator + 1);
+        buffer.erase(0, separator+2);
+        separator = buffer.find("\r\n");
+        qDebug() << data.c_str();
+    }
+    
+
 }
 
 
