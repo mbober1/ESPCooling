@@ -73,7 +73,6 @@ void MainWindow::connectedMode(bool state) {
 
     ui->cpuLabel->setEnabled(state);
     ui->cpuLcd->setEnabled(state);
-    ui->cpuLcd->display(0);
     ui->cpuProgressBar->setEnabled(state);
     ui->cpuProgressBar->setValue(0);
     ui->cpuSlider->setEnabled(state);
@@ -81,7 +80,6 @@ void MainWindow::connectedMode(bool state) {
 
     ui->gpuLabel->setEnabled(state);
     ui->gpuLcd->setEnabled(state);
-    ui->gpuLcd->display(0);
     ui->gpuProgressBar->setEnabled(state);
     ui->gpuProgressBar->setValue(0);
     ui->gpuSlider->setEnabled(state);
@@ -90,12 +88,17 @@ void MainWindow::connectedMode(bool state) {
     ui->autoButton->setEnabled(state);
     ui->sendButton->setEnabled(state);
     ui->manualButton->setEnabled(state);
+
+    this->cpuSpeed(0);
+    this->gpuSpeed(0);
 }
 
 void MainWindow::cpuSpeed(int speed) {
-    ui->cpuLcd->display(speed);
+    QString text = QString::number(speed) + QString(" RPM");
+    ui->cpuLcd->setText(text);
 }
 
 void MainWindow::gpuSpeed(int speed) {
-    ui->gpuLcd->display(speed);
+    QString text = QString::number(speed) + QString(" RPM");
+    ui->gpuLcd->setText(text);
 }

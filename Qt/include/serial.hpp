@@ -31,7 +31,6 @@ public:
     void disconnect();
     QSerialPort *device;
     void readFromPort();
-    
 
 signals:
     void cpuSpeedChanged(uint speed);

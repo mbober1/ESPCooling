@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icon">
+    <file>icons/cpu.png</file>
+    <file>icons/gpu.png</file>
     <file>icons/fan-auto.png</file>
     <file>icons/send.png</file>
     <file>icons/connect.png</file>
