@@ -11,6 +11,16 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
     ui(new Ui::ConnectionDialog)
 {
     ui->setupUi(this);
+
+    QList<QSerialPortInfo> devices;
+    devices = QSerialPortInfo::availablePorts();
+
+    for (size_t i = 0; i < devices.count(); i++)
+    {
+        ui->comboBox->addItem(devices.at(i).portName() + " - " + devices.at(i).description());
+        qDebug() << devices.at(i).portName() << devices.at(i).description();
+    }
+    
 }
 
 /**
@@ -19,4 +29,12 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
 ConnectionDialog::~ConnectionDialog()
 {
     delete ui;
+}
+
+/**
+ * Get adress for connection.
+ * @return Address of device.
+ */
+QString ConnectionDialog::getAdress() {
+    return ui->comboBox->currentText().split(" ").first();
 }

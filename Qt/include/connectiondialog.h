@@ -2,6 +2,8 @@
 #define CONNECTIONDIALOG_HPP
 
 #include <QDialog>
+#include <QtSerialPort>
+#include <QTextList>
 
 namespace Ui {
 class ConnectionDialog;
@@ -23,9 +25,7 @@ class ConnectionDialog : public QDialog
 public:
     explicit ConnectionDialog(QWidget *parent = nullptr);
     ~ConnectionDialog();
-    // QString getAdress();
-    // int getUdpPort();
-    // int getTcpPort();
+    QString getAdress();
 
 private:
     Ui::ConnectionDialog *ui;

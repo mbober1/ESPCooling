@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QDesktopServices>
 #include "connectiondialog.h"
+#include <QtSerialPort>
+#include "serial.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,5 +27,6 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    Serial *device;
 };
 #endif // MAINWINDOW_H
