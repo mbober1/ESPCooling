@@ -4,17 +4,10 @@
 /**
  * A constructor.
  */
-Serial::Serial()
+Serial::Serial(QWidget *parent)
 {
     this->device = new QSerialPort();
-
-    // auto gamepads = QGamepadManager::instance()->connectedGamepads();
-    // if (gamepads.isEmpty()) {
-    //     qDebug() << "Did not find any connected gamepads";
-    //     return;
-    // }
-
-    // m_gamepad = new QGamepad(*gamepads.begin(), this);
+    // QMetaObject::connect(this->device, SIGNAL(readyRead()), this, SLOT(readFromPort()));
 }
 
 
@@ -37,13 +30,27 @@ bool Serial::connect(const QString &name) {
         this->device->setStopBits(QSerialPort::OneStop);
         this->device->setFlowControl(QSerialPort::NoFlowControl);
 
-        qDebug() << "port opening succes";
+        QObject::connect(this->device, &QSerialPort::readyRead, this, &Serial::readFromPort);
+
         return true;
 
     } else qDebug() << "port opening error";
     return false;
 }
 
+
 void Serial::disconnect() {
     this->device->close();
+}
+
+
+void Serial::readFromPort() {
+    qDebug() << this->device->readLine();
+}
+
+
+void Serial::sendMessageToDevice(QString message) {
+    if(this->device->isOpen() && this->device->isWritable()) {
+        this->device->write(message.toStdString().c_str());
+    }
 }

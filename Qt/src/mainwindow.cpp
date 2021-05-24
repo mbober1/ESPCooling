@@ -11,11 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
     this->connectedMode(false);
 
     connect(ui->actionConnect, &QAction::triggered, this, &MainWindow::actionConnect);
-    // connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::actionDisconnect);
+    connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::actionDisconnect);
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::github);
     connect(ui->actionAbout_this_app , &QAction::triggered, this, &MainWindow::about);
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -30,13 +31,18 @@ void MainWindow::actionConnect() {
     ConnectionDialog dialog;
     dialog.setModal(true);
     if(dialog.exec() == QDialog::Accepted) {
-        qDebug() << dialog.getAdress();
         if(device->connect(dialog.getAdress())) {
             this->connectedMode(true);
             return;
         }
     }
     
+    this->connectedMode(false);
+}
+
+
+void MainWindow::actionDisconnect() {
+    this->device->disconnect();
     this->connectedMode(false);
 }
 
@@ -74,4 +80,11 @@ void MainWindow::connectedMode(bool state) {
     ui->gpuLcd->setEnabled(state);
     ui->gpuProgressBar->setEnabled(state);
     ui->gpuSlider->setEnabled(state);
+
+    ui->autoButton->setEnabled(state);
+    ui->sendButton->setEnabled(state);
+    ui->manualButton->setEnabled(state);
+
+    // if(state) connect(this->device->device, SIGNAL(readyRead()), this, SLOT(device->readFromPort()));
+    // else disconnect()
 }

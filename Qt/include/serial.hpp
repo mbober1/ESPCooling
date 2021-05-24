@@ -4,6 +4,7 @@
 #include <QtCore/QObject>
 #include <QSerialPort>
 #include <QDebug>
+#include <QObject>
 
 QT_BEGIN_NAMESPACE
 class QSerialPort;
@@ -19,16 +20,23 @@ QT_END_NAMESPACE
 /**
     @brief Serial class
 */
-class Serial
+class Serial : public QObject
 {
+    Q_OBJECT
+
 public:
-    explicit Serial();
+    explicit Serial(QWidget *parent = nullptr);
     ~Serial();
     bool connect(const QString &name);
     void disconnect();
+    QSerialPort *device;
+    void readFromPort();
+    
+
+private slots:
 
 private:
-    QSerialPort *device;
+    void sendMessageToDevice(QString message);
 };
 
 #endif // SERIAL_H

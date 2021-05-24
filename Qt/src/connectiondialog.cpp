@@ -18,7 +18,6 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
     for (size_t i = 0; i < devices.count(); i++)
     {
         ui->comboBox->addItem(devices.at(i).portName() + " - " + devices.at(i).description());
-        qDebug() << devices.at(i).portName() << devices.at(i).description();
     }
     
 }

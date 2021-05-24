@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>ESPCooling</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icon/icons/fan.png</normaloff>:/icon/icons/fan.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
@@ -34,6 +38,10 @@
          <property name="text">
           <string>Manual</string>
          </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/icon/icons/fan.png</normaloff>:/icon/icons/fan.png</iconset>
+         </property>
         </widget>
        </item>
        <item>
@@ -44,6 +52,10 @@
          <property name="text">
           <string>Auto</string>
          </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/icon/icons/fan-auto.png</normaloff>:/icon/icons/fan-auto.png</iconset>
+         </property>
         </widget>
        </item>
       </layout>
@@ -52,6 +64,13 @@
       <layout class="QGridLayout" name="cpuLayout">
        <item row="0" column="0">
         <widget class="QLabel" name="cpuLabel">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="text">
           <string>CPU Fan</string>
          </property>
@@ -74,6 +93,14 @@
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>13</pointsize>
+            </font>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
           </widget>
          </item>
         </layout>
@@ -82,6 +109,11 @@
         <widget class="QProgressBar" name="cpuProgressBar">
          <property name="enabled">
           <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+          </font>
          </property>
          <property name="value">
           <number>24</number>
@@ -94,6 +126,13 @@
       <layout class="QGridLayout" name="gpuLayout">
        <item row="0" column="0">
         <widget class="QLabel" name="gpuLabel">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="text">
           <string>GPU Fan</string>
          </property>
@@ -103,6 +142,13 @@
         <widget class="QProgressBar" name="gpuProgressBar">
          <property name="enabled">
           <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
          </property>
          <property name="value">
           <number>24</number>
@@ -126,6 +172,16 @@
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>13</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
           </widget>
          </item>
         </layout>
@@ -141,6 +197,10 @@
          </property>
          <property name="text">
           <string>Send</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/icon/icons/send.png</normaloff>:/icon/icons/send.png</iconset>
          </property>
         </widget>
        </item>
@@ -179,6 +239,10 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionConnect">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icon/icons/connect.png</normaloff>:/icon/icons/connect.png</iconset>
+   </property>
    <property name="text">
     <string>Connect</string>
    </property>
@@ -186,6 +250,10 @@
   <action name="actionDisconnect">
    <property name="enabled">
     <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icon/icons/disconnect.png</normaloff>:/icon/icons/disconnect.png</iconset>
    </property>
    <property name="text">
     <string>Disconnect</string>
@@ -195,21 +263,35 @@
    </property>
   </action>
   <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icon/icons/quit.png</normaloff>:/icon/icons/quit.png</iconset>
+   </property>
    <property name="text">
     <string>Quit</string>
    </property>
   </action>
   <action name="actionAbout_this_app">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icon/icons/information.png</normaloff>:/icon/icons/information.png</iconset>
+   </property>
    <property name="text">
     <string>About this app</string>
    </property>
   </action>
   <action name="actionGitHub">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icon/icons/github.png</normaloff>:/icon/icons/github.png</iconset>
+   </property>
    <property name="text">
     <string>GitHub</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

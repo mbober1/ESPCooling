@@ -21,7 +21,7 @@ public:
 
 public slots:
     void actionConnect();
-    // void actionDisconnect();
+    void actionDisconnect();
     void github();
     void about();
     void connectedMode(bool state);
