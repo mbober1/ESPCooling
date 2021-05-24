@@ -12,15 +12,17 @@ find_package(Qt5Widgets)
 set(SOURCES
     src/main.cpp
     src/mainwindow.cpp
+    src/connectiondialog.cpp
 )
 
 set(HEADERS
     include/mainwindow.h
+    include/connectiondialog.h
 )
 
 set(UIS
     ui_mainwindow.h
-    ui_connect.h
+    ui_connectiondialog.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${UIS})
