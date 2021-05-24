@@ -6,15 +6,137 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>400</width>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>381</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="buttonsLayout_2">
+       <item>
+        <widget class="QPushButton" name="manualButton">
+         <property name="text">
+          <string>Manual</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="autoButton">
+         <property name="text">
+          <string>Auto</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="cpuLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="cpuLabel">
+         <property name="text">
+          <string>CPU Fan</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QSlider" name="cpuSlider">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLCDNumber" name="cpuLcd"/>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <widget class="QProgressBar" name="cpuProgressBar">
+         <property name="value">
+          <number>24</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gpuLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="gpuLabel">
+         <property name="text">
+          <string>GPU Fan</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QProgressBar" name="gpuProgressBar">
+         <property name="value">
+          <number>24</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QSlider" name="gpuSlider">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLCDNumber" name="gpuLcd"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="buttonsLayout">
+       <item>
+        <widget class="QPushButton" name="sendButton">
+         <property name="text">
+          <string>Send</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="closeButton">
+         <property name="text">
+          <string>Close</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>32</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
