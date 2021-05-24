@@ -25,7 +25,9 @@ public slots:
     void github();
     void about();
     void cpuSpeed(int speed);
+    void cpuPercentage(int percentage);
     void gpuSpeed(int speed);
+    void gpuPercentage(int percentage);
     void connectedMode(bool state);
 
 private:

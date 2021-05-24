@@ -34,7 +34,7 @@ bool Serial::connect(const QString &name) {
 
         return true;
 
-    } else qDebug() << "port opening error";
+    } else qDebug() << "Port opening error";
     return false;
 }
 
@@ -76,6 +76,18 @@ void Serial::readFromPort() {
             case 'G': {
                 std::string gpu = packet.substr(1, packet.size()-1);
                 emit gpuSpeedChanged(std::atoi(gpu.c_str()));
+                break;
+            }
+
+            case 'S': {
+                std::string cpu = packet.substr(1, packet.size()-1);
+                emit cpuPercentageChanged(std::atoi(cpu.c_str()));
+                break;
+            }
+
+            case 'T': {
+                std::string gpu = packet.substr(1, packet.size()-1);
+                emit gpuPercentageChanged(std::atoi(gpu.c_str()));
                 break;
             }
             

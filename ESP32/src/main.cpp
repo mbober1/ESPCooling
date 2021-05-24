@@ -13,7 +13,7 @@ extern "C" void app_main() {
     {
         vTaskDelay(100 / portTICK_PERIOD_MS);
         uint speed = fan.getSpeed();
-        printf("C%d;G%d;\n", speed, speed);
+        printf("C%d;G%d;S%d;T%d;\n", speed, speed, 69, 96);
     }
     
 }

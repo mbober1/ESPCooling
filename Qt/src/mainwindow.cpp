@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionAbout_this_app , &QAction::triggered, this, &MainWindow::about);
     connect(device, &Serial::cpuSpeedChanged, this,  &MainWindow::cpuSpeed);
     connect(device, &Serial::gpuSpeedChanged, this,  &MainWindow::gpuSpeed);
+    connect(device, &Serial::cpuPercentageChanged, this,  &MainWindow::cpuPercentage);
+    connect(device, &Serial::gpuPercentageChanged, this,  &MainWindow::gpuPercentage);
 }
 
 
@@ -74,14 +76,12 @@ void MainWindow::connectedMode(bool state) {
     ui->cpuLabel->setEnabled(state);
     ui->cpuLcd->setEnabled(state);
     ui->cpuProgressBar->setEnabled(state);
-    ui->cpuProgressBar->setValue(0);
     ui->cpuSlider->setEnabled(state);
     ui->cpuSlider->setValue(0);
 
     ui->gpuLabel->setEnabled(state);
     ui->gpuLcd->setEnabled(state);
     ui->gpuProgressBar->setEnabled(state);
-    ui->gpuProgressBar->setValue(0);
     ui->gpuSlider->setEnabled(state);
     ui->gpuSlider->setValue(0);
 
@@ -90,7 +90,9 @@ void MainWindow::connectedMode(bool state) {
     ui->manualButton->setEnabled(state);
 
     this->cpuSpeed(0);
+    this->cpuPercentage(0);
     this->gpuSpeed(0);
+    this->gpuPercentage(0);
 }
 
 void MainWindow::cpuSpeed(int speed) {
@@ -101,4 +103,12 @@ void MainWindow::cpuSpeed(int speed) {
 void MainWindow::gpuSpeed(int speed) {
     QString text = QString::number(speed) + QString(" RPM");
     ui->gpuLcd->setText(text);
+}
+
+void MainWindow::cpuPercentage(int percentage) {
+    ui->cpuProgressBar->setValue(percentage);
+}
+
+void MainWindow::gpuPercentage(int percentage) {
+    ui->gpuProgressBar->setValue(percentage);
 }

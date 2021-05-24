@@ -33,8 +33,10 @@ public:
     void readFromPort();
 
 signals:
-    void cpuSpeedChanged(uint speed);
-    void gpuSpeedChanged(uint speed);
+    void cpuSpeedChanged(int speed);
+    void gpuSpeedChanged(int speed);
+    void cpuPercentageChanged(int speed);
+    void gpuPercentageChanged(int speed);
 
 private:
     void sendMessageToDevice(QString message);
