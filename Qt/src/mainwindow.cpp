@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,6 +28,7 @@ void MainWindow::actionConnect() {
     ConnectionDialog dialog;
     dialog.setModal(true);
     if(dialog.exec() == QDialog::Accepted) {
+        qDebug() << "dupa";
         // scene->resetPosition();
         // tcp.address = dialog.getAdress();
         // tcp.port = dialog.getTcpPort();
