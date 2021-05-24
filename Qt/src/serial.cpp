@@ -45,10 +45,9 @@ void Serial::disconnect() {
 
 
 void Serial::readFromPort() {
-    // qDebug() << this->device->readAll();
     static std::string buffer;
 
-    buffer.append(this->device->readAll().toStdString());
+    buffer.append(this->device->readAll());
 
     int separator = buffer.find("\r\n");
 
@@ -56,10 +55,35 @@ void Serial::readFromPort() {
         std::string data = buffer.substr(0, separator + 1);
         buffer.erase(0, separator+2);
         separator = buffer.find("\r\n");
-        qDebug() << data.c_str();
-    }
-    
 
+        int packetSeparator = data.find(";");
+
+        while (packetSeparator != std::string::npos) {
+            std::string packet = data.substr(0, packetSeparator);
+            data.erase(0, packetSeparator+1);
+            packetSeparator = data.find(";");
+
+            char type = packet.at(0);
+
+            switch (type)
+            {
+            case 'C': {
+                std::string cpu = packet.substr(1, packet.size()-1);
+                emit cpuSpeedChanged(std::atoi(cpu.c_str()));
+                break;
+            }
+
+            case 'G': {
+                std::string gpu = packet.substr(1, packet.size()-1);
+                emit gpuSpeedChanged(std::atoi(gpu.c_str()));
+                break;
+            }
+            
+            default:
+                break;
+            }
+        }
+    }
 }
 
 
