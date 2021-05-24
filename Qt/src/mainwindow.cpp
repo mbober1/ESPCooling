@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::github);
     connect(ui->actionAbout_this_app , &QAction::triggered, this, &MainWindow::about);
+    connect(device, &Serial::cpuSpeedChanged, this,  &MainWindow::cpuSpeed);
+    connect(device, &Serial::gpuSpeedChanged, this,  &MainWindow::gpuSpeed);
 }
 
 
@@ -70,21 +72,30 @@ void MainWindow::connectedMode(bool state) {
     ui->actionDisconnect->setEnabled(state);
 
     ui->cpuLabel->setEnabled(state);
-    ui->cpuLayout->setEnabled(state);
     ui->cpuLcd->setEnabled(state);
+    ui->cpuLcd->display(0);
     ui->cpuProgressBar->setEnabled(state);
+    ui->cpuProgressBar->setValue(0);
     ui->cpuSlider->setEnabled(state);
+    ui->cpuSlider->setValue(0);
 
     ui->gpuLabel->setEnabled(state);
-    ui->gpuLayout->setEnabled(state);
     ui->gpuLcd->setEnabled(state);
+    ui->gpuLcd->display(0);
     ui->gpuProgressBar->setEnabled(state);
+    ui->gpuProgressBar->setValue(0);
     ui->gpuSlider->setEnabled(state);
+    ui->gpuSlider->setValue(0);
 
     ui->autoButton->setEnabled(state);
     ui->sendButton->setEnabled(state);
     ui->manualButton->setEnabled(state);
+}
 
-    // if(state) connect(this->device->device, SIGNAL(readyRead()), this, SLOT(device->readFromPort()));
-    // else disconnect()
+void MainWindow::cpuSpeed(int speed) {
+    ui->cpuLcd->display(speed);
+}
+
+void MainWindow::gpuSpeed(int speed) {
+    ui->gpuLcd->display(speed);
 }

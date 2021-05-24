@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-    QResource::registerResource("/home/mbober/Documents/RoboVision/resources.rcc");
+    QResource::registerResource("/home/mbober/Documents/ESPCooling/Qt/resources.qrc");
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

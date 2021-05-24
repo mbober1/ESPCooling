@@ -24,6 +24,8 @@ public slots:
     void actionDisconnect();
     void github();
     void about();
+    void cpuSpeed(int speed);
+    void gpuSpeed(int speed);
     void connectedMode(bool state);
 
 private:

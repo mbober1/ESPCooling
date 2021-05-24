@@ -33,7 +33,9 @@ public:
     void readFromPort();
     
 
-private slots:
+signals:
+    void cpuSpeedChanged(uint speed);
+    void gpuSpeedChanged(uint speed);
 
 private:
     void sendMessageToDevice(QString message);
