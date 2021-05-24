@@ -8,7 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->device = new Serial;
-    
+    this->connectedMode(false);
+
     connect(ui->actionConnect, &QAction::triggered, this, &MainWindow::actionConnect);
     // connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::actionDisconnect);
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
@@ -30,8 +31,13 @@ void MainWindow::actionConnect() {
     dialog.setModal(true);
     if(dialog.exec() == QDialog::Accepted) {
         qDebug() << dialog.getAdress();
-        device->connect(dialog.getAdress());
+        if(device->connect(dialog.getAdress())) {
+            this->connectedMode(true);
+            return;
+        }
     }
+    
+    this->connectedMode(false);
 }
 
 
@@ -50,4 +56,22 @@ void MainWindow::about() {
     // AboutProgramDialog dialog;
     // dialog.setModal(true);
     // dialog.exec();
+}
+
+void MainWindow::connectedMode(bool state) {
+    ui->actionConnect->setVisible(!state);
+    ui->actionDisconnect->setVisible(state);
+    ui->actionDisconnect->setEnabled(state);
+
+    ui->cpuLabel->setEnabled(state);
+    ui->cpuLayout->setEnabled(state);
+    ui->cpuLcd->setEnabled(state);
+    ui->cpuProgressBar->setEnabled(state);
+    ui->cpuSlider->setEnabled(state);
+
+    ui->gpuLabel->setEnabled(state);
+    ui->gpuLayout->setEnabled(state);
+    ui->gpuLcd->setEnabled(state);
+    ui->gpuProgressBar->setEnabled(state);
+    ui->gpuSlider->setEnabled(state);
 }

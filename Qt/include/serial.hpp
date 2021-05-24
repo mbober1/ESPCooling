@@ -24,7 +24,8 @@ class Serial
 public:
     explicit Serial();
     ~Serial();
-    void connect(const QString &name);
+    bool connect(const QString &name);
+    void disconnect();
 
 private:
     QSerialPort *device;

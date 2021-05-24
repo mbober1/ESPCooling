@@ -27,7 +27,7 @@ Serial::~Serial()
 }
 
 
-void Serial::connect(const QString &name) {
+bool Serial::connect(const QString &name) {
     this->device->setPortName(name);
 
     if(this->device->open(QSerialPort::ReadWrite)) {
@@ -38,5 +38,12 @@ void Serial::connect(const QString &name) {
         this->device->setFlowControl(QSerialPort::NoFlowControl);
 
         qDebug() << "port opening succes";
+        return true;
+
     } else qDebug() << "port opening error";
+    return false;
+}
+
+void Serial::disconnect() {
+    this->device->close();
 }

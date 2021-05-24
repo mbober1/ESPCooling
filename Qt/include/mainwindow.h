@@ -24,6 +24,7 @@ public slots:
     // void actionDisconnect();
     void github();
     void about();
+    void connectedMode(bool state);
 
 private:
     Ui::MainWindow *ui;
