@@ -101,7 +101,7 @@ uint16_t Fan::getSpeed() {
     int64_t elapsedTime = esp_timer_get_time() - lastCounterClear;
     this->lastCounterClear = esp_timer_get_time();
     uint16_t speed = pulses * ((3000*5000)/elapsedTime);
-    printf("Pulses: %d, Time %lld --> Speed: %d\n", pulses, elapsedTime, speed);
+    // printf("Pulses: %d, Time %lld --> Speed: %d\n", pulses, elapsedTime, speed);
 
     return speed;
 }
