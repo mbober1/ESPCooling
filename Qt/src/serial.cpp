@@ -110,5 +110,5 @@ void Serial::setGpuFanSpeed(int percentage) {
     QString message("W");
     message.append(QString::number(percentage));
     message.append(";");
-    // this->sendMessageToDevice(message);
+    this->sendMessageToDevice(message);
 }
