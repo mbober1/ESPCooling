@@ -32,6 +32,10 @@ public:
     QSerialPort *device;
     void readFromPort();
 
+public slots:
+    void setCpuFanSpeed(int percentage);
+    // void setGpuFanSpeed(int percentage);
+
 signals:
     void cpuSpeedChanged(int speed);
     void gpuSpeedChanged(int speed);

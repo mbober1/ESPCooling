@@ -71,14 +71,14 @@ void uartRX() {
 
             switch (parse.at(0))
             {
-                case 'P': { // set pwm1
+                case 'P': { // set pwm1 percentage
                     parse.erase(0, 1);
                     int pwm = std::atoi(parse.c_str());
                     printf("PWM1 Speed: %d\n", pwm);
                     break;
                 }
 
-                case 'W': { // set pwm2
+                case 'W': { // set pwm2 percentage
                     parse.erase(0, 1);
                     int pwm = std::atoi(parse.c_str());
                     printf("PWM2 Speed: %d\n", pwm);

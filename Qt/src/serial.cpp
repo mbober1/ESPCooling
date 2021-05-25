@@ -104,3 +104,11 @@ void Serial::sendMessageToDevice(QString message) {
         this->device->write(message.toStdString().c_str());
     }
 }
+
+
+void Serial::setCpuFanSpeed(int percentage) {
+    printf("value changed to %d\n", percentage);
+    QString message("P");
+    message.append(QString::number(percentage));
+    this->sendMessageToDevice(message);
+}

@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(device, &Serial::gpuSpeedChanged, this,  &MainWindow::gpuSpeed);
     connect(device, &Serial::cpuPercentageChanged, this,  &MainWindow::cpuPercentage);
     connect(device, &Serial::gpuPercentageChanged, this,  &MainWindow::gpuPercentage);
+    connect(ui->cpuSlider, &QAbstractSlider::valueChanged, device, &Serial::setCpuFanSpeed);
 }
 
 
