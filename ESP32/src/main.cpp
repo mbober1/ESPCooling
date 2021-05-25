@@ -3,27 +3,35 @@
 #include "driver/uart.h"
 #include <string>
 
-const gpio_num_t tachoPin = GPIO_NUM_34;
-const gpio_num_t pwmPin = GPIO_NUM_32;
-const ledc_channel_t pwmChannel = LEDC_CHANNEL_0;
-const pcnt_unit_t pcntUnit = PCNT_UNIT_0;
+const gpio_num_t cpuTachoPin = GPIO_NUM_34;
+const gpio_num_t cpuPwmPin = GPIO_NUM_32;
+const pcnt_unit_t cpuPcntUnit = PCNT_UNIT_0;
+const ledc_channel_t cpuPwmChannel = LEDC_CHANNEL_0;
+
+const gpio_num_t gpuTachoPin = GPIO_NUM_35;
+const gpio_num_t gpuPwmPin = GPIO_NUM_33;
+const pcnt_unit_t gpuPcntUnit = PCNT_UNIT_1;
+const ledc_channel_t gpuPwmChannel = LEDC_CHANNEL_1;
+
 
 const uart_port_t uart = UART_NUM_0; 
 
-int dupa[2];
+int dupa[2] = {0, 0};
 
 void uartRX(void* sock);
 
 extern "C" void app_main() {
-    Fan fan(tachoPin, pwmPin, pwmChannel, pcntUnit);
+    Fan cpufan(cpuTachoPin, cpuPwmPin, cpuPwmChannel, cpuPcntUnit);
+    Fan gpufan(gpuTachoPin, gpuPwmPin, gpuPwmChannel, gpuPcntUnit);
 
     xTaskCreate(uartRX, "serialRX", 4096, (void*)nullptr, 5, NULL);
 
     while (true)
     {
-        vTaskDelay(100 / portTICK_PERIOD_MS);
-        uint speed = fan.getSpeed();
-        printf("C%d;G%d;S%d;T%d;", speed, speed, dupa[0], dupa[1]);
+        vTaskDelay(200 / portTICK_PERIOD_MS);
+        printf("C%d;G%d;S%d;T%d;", cpufan.getSpeed(), gpufan.getSpeed(), dupa[0], dupa[1]);
+        cpufan.setPower(dupa[0]);
+        gpufan.setPower(dupa[1]);
     }
     
 }

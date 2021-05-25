@@ -48,54 +48,46 @@ void Serial::readFromPort() {
 
     buffer.append(this->device->readAll());
 
-    // int separator = buffer.find("\r\n");
+    int packetSeparator = buffer.find(";");
 
-    // while(separator != std::string::npos) {
-    //     std::string data = buffer.substr(0, separator + 1);
-    //     buffer.erase(0, separator+2);
-    //     separator = buffer.find("\r\n");
+    while (packetSeparator != std::string::npos) {
+        std::string packet = buffer.substr(0, packetSeparator);
+        buffer.erase(0, packetSeparator+1);
+        packetSeparator = buffer.find(";");
 
-        int packetSeparator = buffer.find(";");
+        char type = packet.at(0);
 
-        while (packetSeparator != std::string::npos) {
-            std::string packet = buffer.substr(0, packetSeparator);
-            buffer.erase(0, packetSeparator+1);
-            packetSeparator = buffer.find(";");
-
-            char type = packet.at(0);
-
-            switch (type)
-            {
-            case 'C': {  // get fan1 speed
-                packet.erase(0, 1);
-                emit cpuSpeedChanged(std::atoi(packet.c_str()));
-                break;
-            }
-
-            case 'G': {  // get fan2 speed
-                packet.erase(0, 1);
-                emit gpuSpeedChanged(std::atoi(packet.c_str()));
-                break;
-            }
-
-            case 'S': {  // get fan1 percentage
-                packet.erase(0, 1);
-                emit cpuPercentageChanged(std::atoi(packet.c_str()));
-                break;
-            }
-
-            case 'T': {  // get fan2 percentage
-                packet.erase(0, 1);
-                emit gpuPercentageChanged(std::atoi(packet.c_str()));
-                break;
-            }
-            
-            default:
-                printf("Unkown packet! Size %d, Data: %s\n", packet.size(), packet.c_str());
-                break;
-            }
+        switch (type)
+        {
+        case 'C': {  // get fan1 speed
+            packet.erase(0, 1);
+            emit cpuSpeedChanged(std::atoi(packet.c_str()));
+            break;
         }
-    // }
+
+        case 'G': {  // get fan2 speed
+            packet.erase(0, 1);
+            emit gpuSpeedChanged(std::atoi(packet.c_str()));
+            break;
+        }
+
+        case 'S': {  // get fan1 percentage
+            packet.erase(0, 1);
+            emit cpuPercentageChanged(std::atoi(packet.c_str()));
+            break;
+        }
+
+        case 'T': {  // get fan2 percentage
+            packet.erase(0, 1);
+            emit gpuPercentageChanged(std::atoi(packet.c_str()));
+            break;
+        }
+        
+        default:
+            printf("Unkown packet! Size %d, Data: %s\n", packet.size(), packet.c_str());
+            break;
+        }
+    }
 }
 
 
@@ -118,5 +110,5 @@ void Serial::setGpuFanSpeed(int percentage) {
     QString message("W");
     message.append(QString::number(percentage));
     message.append(";");
-    this->sendMessageToDevice(message);
+    // this->sendMessageToDevice(message);
 }

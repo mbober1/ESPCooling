@@ -10,11 +10,14 @@ private:
     ledc_channel_t pwmChannel;
     pcnt_unit_t pcntUnit;
     int64_t lastCounterClear;
+    ledc_channel_config_t ledc_channel = {};
+    ledc_timer_config_t ledc_timer = {};
 
 public:
     Fan(gpio_num_t tachoPin, gpio_num_t pwmPin, ledc_channel_t pwmChannel, pcnt_unit_t pcntUnit);
     ~Fan();
     uint16_t getSpeed();
+    void setPower(const uint16_t percentage);
 };
 
 Fan::~Fan() {}
@@ -49,23 +52,23 @@ pcntUnit(pcntUnit)
 
 
     // pwm timer config
-    // ledc_timer.duty_resolution = LEDC_TIMER_10_BIT;
-    // ledc_timer.freq_hz = 25000;
-    // ledc_timer.speed_mode = LEDC_HIGH_SPEED_MODE;
-    // ledc_timer.timer_num = LEDC_TIMER_0;
-    // ledc_timer.clk_cfg = LEDC_AUTO_CLK;
-    // err = ledc_timer_config(&ledc_timer);
+    ledc_timer.duty_resolution = LEDC_TIMER_10_BIT;
+    ledc_timer.freq_hz = 25000;
+    ledc_timer.speed_mode = LEDC_HIGH_SPEED_MODE;
+    ledc_timer.timer_num = LEDC_TIMER_0;
+    ledc_timer.clk_cfg = LEDC_AUTO_CLK;
+    err = ledc_timer_config(&ledc_timer);
 
-    // ledc_channel.channel = pwmChannel;
-    // ledc_channel.duty = 0;
-    // ledc_channel.gpio_num = pwmPin;
-    // ledc_channel.speed_mode = LEDC_HIGH_SPEED_MODE;
-    // ledc_channel.hpoint     = 0;
-    // ledc_channel.timer_sel  = LEDC_TIMER_0;
-    // err += ledc_channel_config(&ledc_channel);
+    ledc_channel.channel = pwmChannel;
+    ledc_channel.duty = 0;
+    ledc_channel.gpio_num = pwmPin;
+    ledc_channel.speed_mode = LEDC_HIGH_SPEED_MODE;
+    ledc_channel.hpoint     = 0;
+    ledc_channel.timer_sel  = LEDC_TIMER_0;
+    err += ledc_channel_config(&ledc_channel);
 
-    // if(!err) printf("PWM initialized, freq %d\n", ledc_get_freq(LEDC_HIGH_SPEED_MODE, LEDC_TIMER_0));
-    // else printf("PWM failed with error: %d\n", err);
+    if(!err) printf("PWM initialized, freq %d\n", ledc_get_freq(LEDC_HIGH_SPEED_MODE, LEDC_TIMER_0));
+    else printf("PWM failed with error: %d\n", err);
 
 
 
@@ -101,7 +104,16 @@ uint16_t Fan::getSpeed() {
     int64_t elapsedTime = esp_timer_get_time() - lastCounterClear;
     this->lastCounterClear = esp_timer_get_time();
     uint16_t speed = pulses * ((3000*5000)/elapsedTime);
-    // printf("Pulses: %d, Time %lld --> Speed: %d\n", pulses, elapsedTime, speed);
-
     return speed;
+}
+
+
+/**
+ * Set motor power.
+ * @param power Motor power [0, (2**duty_resolution)]
+ */
+inline void Fan::setPower(const uint16_t percentage) {
+    uint16_t pow = (percentage * 1024)/100;
+    ledc_set_duty(this->ledc_channel.speed_mode, this->ledc_channel.channel, pow);
+    ledc_update_duty(this->ledc_channel.speed_mode, this->ledc_channel.channel);
 }
