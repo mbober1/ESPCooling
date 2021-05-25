@@ -10,18 +10,20 @@ const pcnt_unit_t pcntUnit = PCNT_UNIT_0;
 
 const uart_port_t uart = UART_NUM_0; 
 
-void uartRX();
+int dupa[2];
+
+void uartRX(void* sock);
 
 extern "C" void app_main() {
     Fan fan(tachoPin, pwmPin, pwmChannel, pcntUnit);
 
-    // uartRX();
+    xTaskCreate(uartRX, "serialRX", 4096, (void*)nullptr, 5, NULL);
 
     while (true)
     {
         vTaskDelay(100 / portTICK_PERIOD_MS);
         uint speed = fan.getSpeed();
-        printf("C%d;G%d;S%d;T%d;", speed, speed, 69, 96);
+        printf("C%d;G%d;S%d;T%d;", speed, speed, dupa[0], dupa[1]);
     }
     
 }
@@ -30,7 +32,7 @@ extern "C" void app_main() {
 
 
 
-void uartRX() {
+void uartRX(void* sock) {
     const int bufferSize = 1024;
     uint8_t data[bufferSize];
 
@@ -57,7 +59,7 @@ void uartRX() {
 
         if(length > 0) {
             std::string dataString((char*)data, length);
-            printf("Len: %d -> Data: %s\n", length, dataString.c_str());
+            // printf("Len: %d -> Data: %s\n", length, dataString.c_str());
             bufferString.append(dataString);
         }
 
@@ -67,21 +69,19 @@ void uartRX() {
             bufferString.erase(0, separator + 1);
             separator = bufferString.find(';');
 
-            printf("Parsed: %s\n", parse.c_str());
+            // printf("Parsed: %s\n", parse.c_str());
 
             switch (parse.at(0))
             {
                 case 'P': { // set pwm1 percentage
                     parse.erase(0, 1);
-                    int pwm = std::atoi(parse.c_str());
-                    printf("PWM1 Speed: %d\n", pwm);
+                    dupa[0] = std::atoi(parse.c_str());
                     break;
                 }
 
                 case 'W': { // set pwm2 percentage
                     parse.erase(0, 1);
-                    int pwm = std::atoi(parse.c_str());
-                    printf("PWM2 Speed: %d\n", pwm);
+                    dupa[1] = std::atoi(parse.c_str());
                     break;
                 }
                 

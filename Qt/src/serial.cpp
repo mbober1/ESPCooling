@@ -102,13 +102,21 @@ void Serial::readFromPort() {
 void Serial::sendMessageToDevice(QString message) {
     if(this->device->isOpen() && this->device->isWritable()) {
         this->device->write(message.toStdString().c_str());
-    }
+    } else printf("duap\n");
 }
 
 
 void Serial::setCpuFanSpeed(int percentage) {
-    printf("value changed to %d\n", percentage);
     QString message("P");
     message.append(QString::number(percentage));
+    message.append(";");
+    this->sendMessageToDevice(message);
+}
+
+
+void Serial::setGpuFanSpeed(int percentage) {
+    QString message("W");
+    message.append(QString::number(percentage));
+    message.append(";");
     this->sendMessageToDevice(message);
 }

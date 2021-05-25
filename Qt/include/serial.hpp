@@ -34,7 +34,7 @@ public:
 
 public slots:
     void setCpuFanSpeed(int percentage);
-    // void setGpuFanSpeed(int percentage);
+    void setGpuFanSpeed(int percentage);
 
 signals:
     void cpuSpeedChanged(int speed);
