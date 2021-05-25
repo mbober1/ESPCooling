@@ -67,7 +67,6 @@ void uartRX(void* sock) {
 
         if(length > 0) {
             std::string dataString((char*)data, length);
-            // printf("Len: %d -> Data: %s\n", length, dataString.c_str());
             bufferString.append(dataString);
         }
 
@@ -76,8 +75,6 @@ void uartRX(void* sock) {
             std::string parse = bufferString.substr(0, separator);
             bufferString.erase(0, separator + 1);
             separator = bufferString.find(';');
-
-            // printf("Parsed: %s\n", parse.c_str());
 
             switch (parse.at(0))
             {
