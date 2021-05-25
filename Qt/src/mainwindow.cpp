@@ -87,7 +87,6 @@ void MainWindow::connectedMode(bool state) {
     ui->gpuSlider->setValue(0);
 
     ui->autoButton->setEnabled(state);
-    ui->sendButton->setEnabled(state);
     ui->manualButton->setEnabled(state);
 
     this->cpuSpeed(0);
