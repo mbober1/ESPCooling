@@ -8,7 +8,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->device = new Serial;
-    this->connectedMode(false);
+
+    QString devicePort = device->findKnowDevice(device->getDevices());
+    if(!devicePort.isEmpty()) {
+        if(device->connect(devicePort)) this->connectedMode(true);
+    } else this->connectedMode(false);
 
     connect(ui->actionConnect, &QAction::triggered, this, &MainWindow::actionConnect);
     connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::actionDisconnect);
@@ -34,24 +38,14 @@ MainWindow::~MainWindow()
  * Connect to server slot.
  */
 void MainWindow::actionConnect() {
-    QList<QSerialPortInfo> devices = device->getDevices();
-    QString devicePort = device->findKnowDevice(devices);
-
-    if(devicePort.isEmpty()) {
-        ConnectionDialog dialog(devices);
-        dialog.setModal(true);
-        if(dialog.exec() == QDialog::Accepted) {
-            devicePort = dialog.getAdress();
-        }
-    }
-
-    if(!devicePort.isEmpty()) {
-        if(device->connect(devicePort)) {
+    ConnectionDialog dialog(device->getDevices());
+    dialog.setModal(true);
+    if(dialog.exec() == QDialog::Accepted) {
+        if(device->connect(dialog.getAdress())) {
             this->connectedMode(true);
             return;
         }
     }
-    
     this->connectedMode(false);
 }
 
