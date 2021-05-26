@@ -50,6 +50,12 @@ void Serial::readFromPort() {
     int packetSeparator = buffer.find(";");
 
     while (packetSeparator != std::string::npos) {
+        if(packetSeparator == 0) {
+            buffer.erase(0,1);
+            packetSeparator = buffer.find(";");
+            if(packetSeparator == std::string::npos) break;
+        }
+
         std::string packet = buffer.substr(0, packetSeparator);
         buffer.erase(0, packetSeparator+1);
         packetSeparator = buffer.find(";");
