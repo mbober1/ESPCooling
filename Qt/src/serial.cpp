@@ -32,8 +32,7 @@ bool Serial::connect(const QString &name) {
         QObject::connect(this->device, &QSerialPort::readyRead, this, &Serial::readFromPort);
 
         return true;
-
-    } else qDebug() << "Port opening error";
+    }
     return false;
 }
 
@@ -88,6 +87,20 @@ void Serial::readFromPort() {
             break;
         }
     }
+}
+
+QList<QSerialPortInfo> Serial::getDevices() {
+    return QSerialPortInfo::availablePorts();
+}
+
+QString Serial::findKnowDevice(QList<QSerialPortInfo> devices) {
+    for (size_t i = 0; i < devices.count(); i++)
+    {
+        if(devices.at(i).manufacturer() == "Silicon Labs" && devices.at(i).productIdentifier() == 60000 && devices.at(i).vendorIdentifier() == 4292) {
+            return devices.at(i).portName();
+        }
+    }
+    return "";
 }
 
 

@@ -6,14 +6,11 @@
  * A constructor.
  * @param[in,out] parent QWidget type parent.
  */
-ConnectionDialog::ConnectionDialog(QWidget *parent) :
+ConnectionDialog::ConnectionDialog(QList<QSerialPortInfo> devices, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ConnectionDialog)
 {
     ui->setupUi(this);
-
-    QList<QSerialPortInfo> devices;
-    devices = QSerialPortInfo::availablePorts();
 
     for (size_t i = 0; i < devices.count(); i++)
     {

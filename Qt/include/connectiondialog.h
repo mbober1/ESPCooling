@@ -23,7 +23,7 @@ class ConnectionDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ConnectionDialog(QWidget *parent = nullptr);
+    explicit ConnectionDialog(QList<QSerialPortInfo> devices, QWidget *parent = nullptr);
     ~ConnectionDialog();
     QString getAdress();
 

@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(device, &Serial::gpuSpeedChanged, this,  &MainWindow::gpuSpeed);
     connect(device, &Serial::cpuPercentageChanged, this,  &MainWindow::cpuPercentage);
     connect(device, &Serial::gpuPercentageChanged, this,  &MainWindow::gpuPercentage);
-    connect(ui->cpuSlider, &QAbstractSlider::valueChanged, device, &Serial::setCpuFanSpeed);
-    connect(ui->gpuSlider, &QAbstractSlider::valueChanged, device, &Serial::setGpuFanSpeed);
+    connect(ui->cpuSlider, &QAbstractSlider::sliderMoved, device, &Serial::setCpuFanSpeed);
+    connect(ui->gpuSlider, &QAbstractSlider::sliderMoved, device, &Serial::setGpuFanSpeed);
 }
 
 
@@ -34,10 +34,19 @@ MainWindow::~MainWindow()
  * Connect to server slot.
  */
 void MainWindow::actionConnect() {
-    ConnectionDialog dialog;
-    dialog.setModal(true);
-    if(dialog.exec() == QDialog::Accepted) {
-        if(device->connect(dialog.getAdress())) {
+    QList<QSerialPortInfo> devices = device->getDevices();
+    QString devicePort = device->findKnowDevice(devices);
+
+    if(devicePort.isEmpty()) {
+        ConnectionDialog dialog(devices);
+        dialog.setModal(true);
+        if(dialog.exec() == QDialog::Accepted) {
+            devicePort = dialog.getAdress();
+        }
+    }
+
+    if(!devicePort.isEmpty()) {
+        if(device->connect(devicePort)) {
             this->connectedMode(true);
             return;
         }

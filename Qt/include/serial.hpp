@@ -5,6 +5,8 @@
 #include <QSerialPort>
 #include <QDebug>
 #include <QObject>
+#include <QtSerialPort>
+#include <QTextList>
 
 QT_BEGIN_NAMESPACE
 class QSerialPort;
@@ -31,6 +33,8 @@ public:
     void disconnect();
     QSerialPort *device;
     void readFromPort();
+    QList<QSerialPortInfo> getDevices();
+    QString findKnowDevice(QList<QSerialPortInfo> devices);
 
 public slots:
     void setCpuFanSpeed(int percentage);
