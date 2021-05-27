@@ -3,13 +3,13 @@
 #include "driver/uart.h"
 #include <string>
 
-const gpio_num_t cpuTachoPin = GPIO_NUM_34;
-const gpio_num_t cpuPwmPin = GPIO_NUM_32;
+const gpio_num_t cpuTachoPin = GPIO_NUM_25;
+const gpio_num_t cpuPwmPin = GPIO_NUM_33;
 const pcnt_unit_t cpuPcntUnit = PCNT_UNIT_0;
 const ledc_channel_t cpuPwmChannel = LEDC_CHANNEL_0;
 
 const gpio_num_t gpuTachoPin = GPIO_NUM_35;
-const gpio_num_t gpuPwmPin = GPIO_NUM_33;
+const gpio_num_t gpuPwmPin = GPIO_NUM_32;
 const pcnt_unit_t gpuPcntUnit = PCNT_UNIT_1;
 const ledc_channel_t gpuPwmChannel = LEDC_CHANNEL_1;
 
