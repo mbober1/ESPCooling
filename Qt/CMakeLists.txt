@@ -20,12 +20,14 @@ set(SOURCES
     src/main.cpp
     src/mainwindow.cpp
     src/connectiondialog.cpp
+    src/aboutdialog.cpp
     src/serial.cpp
 )
 
 set(HEADERS
     include/mainwindow.h
     include/connectiondialog.h
+    include/aboutdialog.h
     include/serial.hpp
 )
 
@@ -33,6 +35,7 @@ set(HEADERS
 set(UIS
     uic/mainwindow.ui
     uic/connectiondialog.ui
+    uic/aboutdialog.ui
 )
 
 

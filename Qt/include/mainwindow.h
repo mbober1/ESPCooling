@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDesktopServices>
 #include "connectiondialog.h"
+#include "aboutdialog.h"
 #include <QtSerialPort>
 #include "serial.hpp"
 
@@ -23,7 +24,7 @@ public slots:
     void actionConnect();
     void actionDisconnect();
     void github();
-    void about();
+    void aboutApp();
     void cpuSpeed(int speed);
     void cpuPercentage(int percentage);
     void gpuSpeed(int speed);
