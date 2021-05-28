@@ -28,11 +28,102 @@
     <height>312</height>
    </size>
   </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="Highlight">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>229</red>
+        <green>165</green>
+        <blue>10</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Link">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>248</red>
+        <green>228</green>
+        <blue>92</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="LinkVisited">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>249</red>
+        <green>240</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Highlight">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>246</red>
+        <green>211</green>
+        <blue>45</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Link">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>248</red>
+        <green>228</green>
+        <blue>92</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="LinkVisited">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>249</red>
+        <green>240</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Highlight">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>249</red>
+        <green>240</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Link">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>248</red>
+        <green>228</green>
+        <blue>92</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="LinkVisited">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>249</red>
+        <green>240</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
+  </property>
   <property name="windowTitle">
    <string>ESPCooling</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset resource="../resources/resources.qrc">
     <normaloff>:/icon/icons/fan.png</normaloff>:/icon/icons/fan.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -60,7 +151,7 @@
           <string>Manual</string>
          </property>
          <property name="icon">
-          <iconset resource="resources.qrc">
+          <iconset resource="../resources/resources.qrc">
            <normaloff>:/icon/icons/fan.png</normaloff>:/icon/icons/fan.png</iconset>
          </property>
         </widget>
@@ -74,7 +165,7 @@
           <string>Auto</string>
          </property>
          <property name="icon">
-          <iconset resource="resources.qrc">
+          <iconset resource="../resources/resources.qrc">
            <normaloff>:/icon/icons/fan-auto.png</normaloff>:/icon/icons/fan-auto.png</iconset>
          </property>
         </widget>
@@ -159,7 +250,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="resources.qrc">:/icon/icons/cpu.png</pixmap>
+            <pixmap resource="../resources/resources.qrc">:/icon/icons/cpu.png</pixmap>
            </property>
           </widget>
          </item>
@@ -251,7 +342,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="resources.qrc">:/icon/icons/gpu.png</pixmap>
+            <pixmap resource="../resources/resources.qrc">:/icon/icons/gpu.png</pixmap>
            </property>
           </widget>
          </item>
@@ -337,7 +428,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionConnect">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/icon/icons/connect.png</normaloff>:/icon/icons/connect.png</iconset>
    </property>
    <property name="text">
@@ -349,7 +440,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/icon/icons/disconnect.png</normaloff>:/icon/icons/disconnect.png</iconset>
    </property>
    <property name="text">
@@ -361,7 +452,7 @@
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/icon/icons/quit.png</normaloff>:/icon/icons/quit.png</iconset>
    </property>
    <property name="text">
@@ -370,7 +461,7 @@
   </action>
   <action name="actionAbout_this_app">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/icon/icons/information.png</normaloff>:/icon/icons/information.png</iconset>
    </property>
    <property name="text">
@@ -379,7 +470,7 @@
   </action>
   <action name="actionGitHub">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/icon/icons/github.png</normaloff>:/icon/icons/github.png</iconset>
    </property>
    <property name="text">
@@ -388,6 +479,7 @@
   </action>
  </widget>
  <resources>
+  <include location="../resources/resources.qrc"/>
   <include location="resources.qrc"/>
  </resources>
  <connections/>

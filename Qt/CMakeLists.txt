@@ -4,7 +4,13 @@ project(Cooling LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+set(CMAKE_AUTOUIC_SEARCH_PATHS uic)
+set(AUTORCC_EXECUTABLE resources/resources.qrc)
 
 
 find_package(Qt5Widgets)
@@ -23,12 +29,14 @@ set(HEADERS
     include/serial.hpp
 )
 
+
 set(UIS
-    ui_mainwindow.h
-    ui_connectiondialog.h
+    uic/mainwindow.ui
+    uic/connectiondialog.ui
 )
 
-qt5_add_resources(SOURCES resources.qrc)
+
+qt5_add_resources(SOURCES resources/resources.qrc)
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${UIS})
 target_include_directories(${PROJECT_NAME} PUBLIC include ui)
 
