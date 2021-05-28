@@ -24,7 +24,7 @@ public slots:
     void actionConnect();
     void actionDisconnect();
     void github();
-    void aboutApp();
+    void about();
     void cpuSpeed(int speed);
     void cpuPercentage(int percentage);
     void gpuSpeed(int speed);

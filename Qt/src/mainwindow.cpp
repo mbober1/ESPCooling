@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::actionDisconnect);
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::github);
-    connect(ui->actionAbout_this_app , &QAction::triggered, this, &MainWindow::aboutApp);
+    connect(ui->actionAbout_this_app , &QAction::triggered, this, &MainWindow::about);
     connect(device, &Serial::cpuSpeedChanged, this,  &MainWindow::cpuSpeed);
     connect(device, &Serial::gpuSpeedChanged, this,  &MainWindow::gpuSpeed);
     connect(device, &Serial::cpuPercentageChanged, this,  &MainWindow::cpuPercentage);
@@ -67,7 +66,7 @@ void MainWindow::github() {
 /**
  * Display the popup about dialog 
  */
-void MainWindow::aboutApp() {
+void MainWindow::about() {
     AboutDialog dialog;
     dialog.setModal(true);
     dialog.exec();

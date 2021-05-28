@@ -67,7 +67,6 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "qdebug": "cpp",
         "queue": "cpp",
         "*.inc": "cpp"
     }

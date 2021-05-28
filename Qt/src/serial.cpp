@@ -89,7 +89,7 @@ void Serial::readFromPort() {
         }
         
         default:
-            printf("Unkown packet! Size %d, Data: %s\n", packet.size(), packet.c_str());
+            // printf("Unkown packet! Size %d, Data: %s\n", packet.size(), packet.c_str());
             break;
         }
     }
@@ -113,7 +113,7 @@ QString Serial::findKnowDevice(QList<QSerialPortInfo> devices) {
 void Serial::sendMessageToDevice(QString message) {
     if(this->device->isOpen() && this->device->isWritable()) {
         this->device->write(message.toStdString().c_str());
-    } else printf("duap\n");
+    }
 }
 
 
