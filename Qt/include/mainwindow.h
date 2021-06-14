@@ -27,6 +27,7 @@ public slots:
     void about();
     void turbo();
     void quiet();
+    void off();
     void cpuSpeed(int speed);
     void cpuPercentage(int percentage);
     void gpuSpeed(int speed);

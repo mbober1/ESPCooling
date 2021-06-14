@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->gpuSlider, &QAbstractSlider::valueChanged, device, &Serial::setGpuFanSpeed);
     connect(ui->turboButton, &QAbstractButton::pressed, this, &MainWindow::turbo);
     connect(ui->quietButton, &QAbstractButton::pressed, this, &MainWindow::quiet);
+    connect(ui->offButton, &QAbstractButton::pressed, this, &MainWindow::off);
 }
 
 
@@ -95,6 +96,7 @@ void MainWindow::connectedMode(bool state) {
     // ui->manualButton->setEnabled(state);
     ui->turboButton->setEnabled(state);
     ui->quietButton->setEnabled(state);
+    ui->offButton->setEnabled(state);
 
     this->cpuSpeed(0);
     this->cpuPercentage(0);
@@ -128,4 +130,9 @@ void MainWindow::turbo() {
 void MainWindow::quiet() {
     ui->cpuSlider->setValue(30);
     ui->gpuSlider->setValue(30);
+}
+
+void MainWindow::off() {
+    ui->cpuSlider->setValue(0);
+    ui->gpuSlider->setValue(0);
 }

@@ -395,6 +395,20 @@
        <item row="3" column="0">
         <layout class="QHBoxLayout" name="buttonsLayout_3">
          <item>
+          <widget class="QPushButton" name="offButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>OFF</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources/resources.qrc">
+             <normaloff>:/icon/icons/fan-off.png</normaloff>:/icon/icons/fan-off.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="quietButton">
            <property name="enabled">
             <bool>false</bool>
