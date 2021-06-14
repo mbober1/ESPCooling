@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icon">
+    <file>icons/quiet.png</file>
+    <file>icons/turbo.png</file>
     <file>icons/cpu.png</file>
     <file>icons/gpu.png</file>
     <file>icons/fan-auto.png</file>

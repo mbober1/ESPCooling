@@ -22,8 +22,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(device, &Serial::gpuSpeedChanged, this,  &MainWindow::gpuSpeed);
     connect(device, &Serial::cpuPercentageChanged, this,  &MainWindow::cpuPercentage);
     connect(device, &Serial::gpuPercentageChanged, this,  &MainWindow::gpuPercentage);
-    connect(ui->cpuSlider, &QAbstractSlider::sliderMoved, device, &Serial::setCpuFanSpeed);
-    connect(ui->gpuSlider, &QAbstractSlider::sliderMoved, device, &Serial::setGpuFanSpeed);
+    connect(ui->cpuSlider, &QAbstractSlider::valueChanged, device, &Serial::setCpuFanSpeed);
+    connect(ui->gpuSlider, &QAbstractSlider::valueChanged, device, &Serial::setGpuFanSpeed);
+    connect(ui->turboButton, &QAbstractButton::pressed, this, &MainWindow::turbo);
+    connect(ui->quietButton, &QAbstractButton::pressed, this, &MainWindow::quiet);
 }
 
 
@@ -89,8 +91,10 @@ void MainWindow::connectedMode(bool state) {
     ui->gpuSlider->setEnabled(state);
     ui->gpuSlider->setValue(0);
 
-    ui->autoButton->setEnabled(state);
-    ui->manualButton->setEnabled(state);
+    // ui->autoButton->setEnabled(state);
+    // ui->manualButton->setEnabled(state);
+    ui->turboButton->setEnabled(state);
+    ui->quietButton->setEnabled(state);
 
     this->cpuSpeed(0);
     this->cpuPercentage(0);
@@ -114,4 +118,14 @@ void MainWindow::cpuPercentage(int percentage) {
 
 void MainWindow::gpuPercentage(int percentage) {
     ui->gpuProgressBar->setValue(percentage);
+}
+
+void MainWindow::turbo() {
+    ui->cpuSlider->setValue(100);
+    ui->gpuSlider->setValue(100);
+}
+
+void MainWindow::quiet() {
+    ui->cpuSlider->setValue(30);
+    ui->gpuSlider->setValue(30);
 }

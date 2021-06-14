@@ -25,6 +25,8 @@ public slots:
     void actionDisconnect();
     void github();
     void about();
+    void turbo();
+    void quiet();
     void cpuSpeed(int speed);
     void cpuPercentage(int percentage);
     void gpuSpeed(int speed);

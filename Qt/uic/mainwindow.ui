@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>312</height>
+    <height>360</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,13 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>312</height>
+    <height>360</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>312</height>
+    <height>360</height>
    </size>
   </property>
   <property name="palette">
@@ -136,7 +136,7 @@
       <x>10</x>
       <y>0</y>
       <width>381</width>
-      <height>252</height>
+      <height>298</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -331,6 +331,23 @@
          </item>
         </layout>
        </item>
+       <item row="1" column="0">
+        <widget class="QProgressBar" name="gpuProgressBar">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="value">
+          <number>24</number>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <layout class="QHBoxLayout" name="gpuBaner">
          <property name="topMargin">
@@ -375,22 +392,37 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="0">
-        <widget class="QProgressBar" name="gpuProgressBar">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>13</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="value">
-          <number>24</number>
-         </property>
-        </widget>
+       <item row="3" column="0">
+        <layout class="QHBoxLayout" name="buttonsLayout_3">
+         <item>
+          <widget class="QPushButton" name="quietButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Quiet</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources/resources.qrc">
+             <normaloff>:/icon/icons/quiet.png</normaloff>:/icon/icons/quiet.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="turboButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Turbo</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources/resources.qrc">
+             <normaloff>:/icon/icons/turbo.png</normaloff>:/icon/icons/turbo.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
@@ -480,7 +512,6 @@
  </widget>
  <resources>
   <include location="../resources/resources.qrc"/>
-  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>
