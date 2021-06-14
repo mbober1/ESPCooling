@@ -89,7 +89,6 @@ void Serial::readFromPort() {
         }
         
         default:
-            // printf("Unkown packet! Size %d, Data: %s\n", packet.size(), packet.c_str());
             break;
         }
     }
