@@ -12,11 +12,13 @@ private:
     int64_t lastCounterClear;
     ledc_channel_config_t ledc_channel = {};
     ledc_timer_config_t ledc_timer = {};
+    uint16_t power;
 
 public:
     Fan(gpio_num_t tachoPin, gpio_num_t pwmPin, ledc_channel_t pwmChannel, pcnt_unit_t pcntUnit);
     ~Fan();
     uint16_t getSpeed();
+    uint16_t getPower();
     void setPower(const uint16_t percentage);
 };
 
@@ -113,7 +115,16 @@ uint16_t Fan::getSpeed() {
  * @param power Motor power [0, (2**duty_resolution)]
  */
 inline void Fan::setPower(const uint16_t percentage) {
+    this->power = percentage;
     uint16_t pow = (percentage * 1024)/100;
     ledc_set_duty(this->ledc_channel.speed_mode, this->ledc_channel.channel, pow);
     ledc_update_duty(this->ledc_channel.speed_mode, this->ledc_channel.channel);
+}
+
+/**
+ * Get motor power.
+ * @return Motor power
+ */
+inline uint16_t Fan::getPower() {
+    return this->power;
 }
