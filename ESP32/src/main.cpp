@@ -16,7 +16,7 @@ const ledc_channel_t gpuPwmChannel = LEDC_CHANNEL_1;
 
 const uart_port_t uart = UART_NUM_0; 
 
-int dupa[2] = {0, 0};
+int fanSpeed[2] = {30, 30};
 
 void uartRX(void* sock);
 
@@ -29,9 +29,9 @@ extern "C" void app_main() {
     while (true)
     {
         vTaskDelay(200 / portTICK_PERIOD_MS);
-        printf("C%d;G%d;S%d;T%d;", cpufan.getSpeed(), gpufan.getSpeed(), dupa[0], dupa[1]);
-        cpufan.setPower(dupa[0]);
-        gpufan.setPower(dupa[1]);
+        printf("C%d;G%d;S%d;T%d;", cpufan.getSpeed(), gpufan.getSpeed(), fanSpeed[0], fanSpeed[1]);
+        cpufan.setPower(fanSpeed[0]);
+        gpufan.setPower(fanSpeed[1]);
     }
     
 }
@@ -80,13 +80,13 @@ void uartRX(void* sock) {
             {
                 case 'P': { // set pwm1 percentage
                     parse.erase(0, 1);
-                    dupa[0] = std::atoi(parse.c_str());
+                    fanSpeed[0] = std::atoi(parse.c_str());
                     break;
                 }
 
                 case 'W': { // set pwm2 percentage
                     parse.erase(0, 1);
-                    dupa[1] = std::atoi(parse.c_str());
+                    fanSpeed[1] = std::atoi(parse.c_str());
                     break;
                 }
                 
