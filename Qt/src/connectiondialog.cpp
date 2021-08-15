@@ -1,4 +1,4 @@
-#include "connectiondialog.h"
+#include "include/connectiondialog.h"
 #include "ui_connectiondialog.h"
 
 
