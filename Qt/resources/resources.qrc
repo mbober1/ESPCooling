@@ -6,10 +6,10 @@
     <file>icons/cpu.png</file>
     <file>icons/gpu.png</file>
     <file>icons/fan-auto.png</file>
-    <file>icons/send.png</file>
     <file>icons/connect.png</file>
     <file>icons/disconnect.png</file>
     <file>icons/fan.png</file>
+    <file>icons/fan_white.png</file>
     <file>icons/github.png</file>
     <file>icons/information.png</file>
     <file>icons/quit.png</file>

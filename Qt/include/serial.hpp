@@ -33,7 +33,7 @@ public:
     QSerialPort *device;
     void readFromPort();
     QList<QSerialPortInfo> getDevices();
-    QString findKnowDevice(QList<QSerialPortInfo> devices);
+    QString findKnownDevice(QList<QSerialPortInfo> devices);
 
 public slots:
     void setCpuFanSpeed(int percentage);

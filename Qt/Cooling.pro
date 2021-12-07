@@ -23,7 +23,7 @@ FORMS += \
 RESOURCES += \
     resources/resources.qrc
 
-RC_ICONS = resources/icons/fan.ico
+RC_ICONS = resources/icons/fan_white.ico
 
 
 # Default rules for deployment.

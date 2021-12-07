@@ -4,18 +4,19 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , device(new Serial)
+    , trayIcon(new QSystemTrayIcon(this))
+    , trayIconMenu(new QMenu(this))
+    , close_flag(false)
 {
     ui->setupUi(this);
-    this->device = new Serial;
+    setup_tray();
+    autoconnect();
 
-    QString devicePort = device->findKnowDevice(device->getDevices());
-    if(!devicePort.isEmpty()) {
-        if(device->connect(devicePort)) this->connectedMode(true);
-    } else this->connectedMode(false);
 
     connect(ui->actionConnect, &QAction::triggered, this, &MainWindow::actionConnect);
     connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::actionDisconnect);
-    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
+    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::shutdown);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::github);
     connect(ui->actionAbout_this_app , &QAction::triggered, this, &MainWindow::about);
     connect(device, &Serial::cpuSpeedChanged, this,  &MainWindow::cpuSpeed);
@@ -27,6 +28,100 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->turboButton, &QAbstractButton::pressed, this, &MainWindow::turbo);
     connect(ui->quietButton, &QAbstractButton::pressed, this, &MainWindow::quiet);
     connect(ui->offButton, &QAbstractButton::pressed, this, &MainWindow::off);
+    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
+
+}
+
+
+
+void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason)
+    {
+        case QSystemTrayIcon::Trigger:
+            if(this->isVisible())
+            {
+                this->hide();
+            }
+            else
+            {
+                this->show();
+            }
+
+            break;
+
+    default:
+        break;
+    }
+}
+
+
+void MainWindow::shutdown()
+{
+    this->close_flag = true;
+    this->close();
+}
+
+
+void MainWindow::setup_tray()
+{
+    // setup icon
+    trayIcon->setIcon(QIcon(":/icon/icons/fan_white.png"));
+    trayIcon->setToolTip("Cooling App");
+
+    // create menu
+    QAction * view_action = new QAction("Launch Cooling App", this);
+    QAction * turbo_action = new QAction("Turbo Mode", this);
+    QAction * quiet_action = new QAction("Quiet Mode", this);
+    QAction * off_action = new QAction("Off fans", this);
+    QAction * quit_action = new QAction("Exit", this);
+
+    // connect signals
+    connect(view_action, &QAction::triggered, this, &MainWindow::show);
+    connect(turbo_action, &QAction::triggered, this, &MainWindow::turbo);
+    connect(quiet_action, &QAction::triggered, this, &MainWindow::quiet);
+    connect(off_action, &QAction::triggered, this, &MainWindow::off);
+    connect(quit_action, &QAction::triggered, this, &MainWindow::shutdown);
+
+    // add menu
+    trayIconMenu->addAction(view_action);
+    trayIconMenu->addSeparator();
+    trayIconMenu->addAction(turbo_action);
+    trayIconMenu->addAction(quiet_action);
+    trayIconMenu->addAction(off_action);
+    trayIconMenu->addSeparator();
+    trayIconMenu->addAction(quit_action);
+
+    trayIcon->setContextMenu(trayIconMenu);
+    trayIcon->show();
+}
+
+
+void MainWindow::autoconnect()
+{
+    QString devicePort = device->findKnownDevice(device->getDevices());
+
+    if(!devicePort.isEmpty())
+    {
+        if(device->connect(devicePort))
+        {
+            this->connectedMode(true);
+        }
+    }
+    else
+    {
+        this->connectedMode(false);
+    }
+}
+
+
+void MainWindow::closeEvent(QCloseEvent * event)
+{
+    if(false == this->close_flag)
+    {
+        event->ignore();
+        this->hide();
+    }
 }
 
 
@@ -92,8 +187,6 @@ void MainWindow::connectedMode(bool state) {
     ui->gpuSlider->setEnabled(state);
     ui->gpuSlider->setValue(0);
 
-    // ui->autoButton->setEnabled(state);
-    // ui->manualButton->setEnabled(state);
     ui->turboButton->setEnabled(state);
     ui->quietButton->setEnabled(state);
     ui->offButton->setEnabled(state);

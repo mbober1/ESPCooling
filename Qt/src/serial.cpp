@@ -98,7 +98,7 @@ QList<QSerialPortInfo> Serial::getDevices() {
     return QSerialPortInfo::availablePorts();
 }
 
-QString Serial::findKnowDevice(QList<QSerialPortInfo> devices) {
+QString Serial::findKnownDevice(QList<QSerialPortInfo> devices) {
     for (size_t i = 0; i < devices.count(); i++)
     {
         if(devices.at(i).manufacturer() == "Silicon Labs" && devices.at(i).productIdentifier() == 60000 && devices.at(i).vendorIdentifier() == 4292) {

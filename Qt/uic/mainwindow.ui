@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>360</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,13 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>360</height>
+    <height>300</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>360</height>
+    <height>300</height>
    </size>
   </property>
   <property name="palette">
@@ -136,109 +136,12 @@
       <x>10</x>
       <y>0</y>
       <width>381</width>
-      <height>298</height>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QHBoxLayout" name="buttonsLayout_2">
-       <item>
-        <widget class="QPushButton" name="manualButton">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Manual</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../resources/resources.qrc">
-           <normaloff>:/icon/icons/fan.png</normaloff>:/icon/icons/fan.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="autoButton">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Auto</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../resources/resources.qrc">
-           <normaloff>:/icon/icons/fan-auto.png</normaloff>:/icon/icons/fan-auto.png</iconset>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
       <layout class="QGridLayout" name="cpuLayout">
-       <item row="3" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QSlider" name="cpuSlider">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="maximum">
-            <number>100</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="cpuLcd">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>86</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="text">
-            <string>0 RPM</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-           <property name="margin">
-            <number>1</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="0">
-        <widget class="QProgressBar" name="cpuProgressBar">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>13</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0">
         <layout class="QHBoxLayout" name="cpuBaner">
          <property name="topMargin">
@@ -283,14 +186,10 @@
          </item>
         </layout>
        </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QGridLayout" name="gpuLayout">
-       <item row="2" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item row="3" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QSlider" name="gpuSlider">
+          <widget class="QSlider" name="cpuSlider">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -303,7 +202,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="gpuLcd">
+          <widget class="QLabel" name="cpuLcd">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -316,13 +215,18 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
            </property>
            <property name="text">
             <string>0 RPM</string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
            <property name="margin">
             <number>1</number>
@@ -331,16 +235,12 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="0">
-        <widget class="QProgressBar" name="gpuProgressBar">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
+       <item row="2" column="0">
+        <widget class="QProgressBar" name="cpuProgressBar">
          <property name="font">
           <font>
-           <pointsize>13</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="value">
@@ -348,6 +248,10 @@
          </property>
         </widget>
        </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gpuLayout">
        <item row="0" column="0">
         <layout class="QHBoxLayout" name="gpuBaner">
          <property name="topMargin">
@@ -389,6 +293,52 @@
             </size>
            </property>
           </spacer>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QSlider" name="gpuSlider">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="gpuLcd">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>86</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>0 RPM</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+           </property>
+           <property name="margin">
+            <number>1</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -438,6 +388,19 @@
          </item>
         </layout>
        </item>
+       <item row="1" column="0">
+        <widget class="QProgressBar" name="gpuProgressBar">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="value">
+          <number>24</number>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -449,7 +412,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>32</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuConnection">
