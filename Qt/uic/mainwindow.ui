@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>320</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,99 +25,8 @@
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>300</height>
+    <height>320</height>
    </size>
-  </property>
-  <property name="palette">
-   <palette>
-    <active>
-     <colorrole role="Highlight">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>229</red>
-        <green>165</green>
-        <blue>10</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="Link">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>248</red>
-        <green>228</green>
-        <blue>92</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="LinkVisited">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>249</red>
-        <green>240</green>
-        <blue>107</blue>
-       </color>
-      </brush>
-     </colorrole>
-    </active>
-    <inactive>
-     <colorrole role="Highlight">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>246</red>
-        <green>211</green>
-        <blue>45</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="Link">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>248</red>
-        <green>228</green>
-        <blue>92</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="LinkVisited">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>249</red>
-        <green>240</green>
-        <blue>107</blue>
-       </color>
-      </brush>
-     </colorrole>
-    </inactive>
-    <disabled>
-     <colorrole role="Highlight">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>249</red>
-        <green>240</green>
-        <blue>107</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="Link">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>248</red>
-        <green>228</green>
-        <blue>92</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="LinkVisited">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>249</red>
-        <green>240</green>
-        <blue>107</blue>
-       </color>
-      </brush>
-     </colorrole>
-    </disabled>
-   </palette>
   </property>
   <property name="windowTitle">
    <string>ESPCooling</string>
@@ -129,6 +38,9 @@
   <property name="windowOpacity">
    <double>0.960000000000000</double>
   </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Triangular</enum>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
@@ -136,7 +48,7 @@
       <x>10</x>
       <y>0</y>
       <width>381</width>
-      <height>241</height>
+      <height>250</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -412,7 +324,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>20</height>
+     <height>35</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuConnection">
