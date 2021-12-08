@@ -7,16 +7,13 @@
 #include "aboutdialog.h"
 #include <QtSerialPort>
 #include "serial.hpp"
-#include "include/hid_interface.hpp"
+#include "thread.hpp"
 
 #include <QCloseEvent>
 #include <QSystemTrayIcon>
 #include <QAction>
 
 
-
-#define VENDOR_ID 0x483
-#define PRODUCT_ID 0x91D1
 
 
 QT_BEGIN_NAMESPACE
@@ -40,9 +37,7 @@ public slots:
     void turbo();
     void quiet();
     void off();
-//    void cpuSpeed(int speed);
     void cpuPercentage(int percentage);
-//    void gpuSpeed(int speed);
     void gpuPercentage(int percentage);
     void connectedMode(bool state);
     void updateData(const slave_mess_t &data);
@@ -51,10 +46,11 @@ public slots:
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void shutdown();
     void setup_tray();
+
 private:
 
     Ui::MainWindow *ui;
-    HID_Interface *device;
+    Thread device_worker;
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;

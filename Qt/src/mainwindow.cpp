@@ -4,7 +4,6 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , device(new HID_Interface(VENDOR_ID, PRODUCT_ID))
     , trayIcon(new QSystemTrayIcon(this))
     , trayIconMenu(new QMenu(this))
     , close_flag(false)
@@ -12,8 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setup_tray();
 
-    connect(device, &HID_Interface::resultReady, this, &MainWindow::updateData);
-    connect(device, &HID_Interface::connection_status, this, &MainWindow::connectedMode);
+//    connect(device, &HID_Interface::resultReady, this, &MainWindow::updateData);
+//    connect(device, &HID_Interface::connection_status, this, &MainWindow::connectedMode);
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::shutdown);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::github);
     connect(ui->actionAbout_this_app , &QAction::triggered, this, &MainWindow::about);
@@ -24,8 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->offButton, &QAbstractButton::pressed, this, &MainWindow::off);
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
 
-    this->device->run();
-    printf("dsdsadds\n");
+    device_worker.start();
 }
 
 
@@ -162,7 +160,7 @@ void MainWindow::sendData()
         .gpu_setpoint = (uint16_t)ui->gpuSlider->value()
     };
 
-    device->write(mess);
+//    device->write(mess);
 }
 
 void MainWindow::cpuPercentage(int percentage) {

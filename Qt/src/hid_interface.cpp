@@ -1,6 +1,5 @@
 #include "include/hid_interface.hpp"
 
-
 HID_Interface::HID_Interface(const unsigned short &vendor_id, const unsigned short &product_id) :
     vendor_id(vendor_id),
     product_id(product_id),
@@ -12,9 +11,6 @@ HID_Interface::HID_Interface(const unsigned short &vendor_id, const unsigned sho
 
 HID_Interface::~HID_Interface()
 {
-  workerThread.quit();
-  workerThread.wait();
-
   hid_close(handle);
   hid_exit();
 }
@@ -32,18 +28,11 @@ bool HID_Interface::open()
   else
   {
     this->connected = true;
-      printf("CONNECTED!\n");
+    printf("CONNECTED!\n");
   }
 
-  emit connection_status(this->connected);
+  // emit connection_status(this->connected);
   return this->connected;
-}
-
-void HID_Interface::run()
-{
-    workerThread.start();
-
-    printf("run\n");
 }
 
 
@@ -76,14 +65,6 @@ std::string HID_Interface::get_serial_number()
   return result;
 }
 
-
-slave_mess_t HID_Interface::read()
-{
-  slave_mess_t rx_buffer;
-  hid_read(handle, (unsigned char *)&rx_buffer, sizeof(slave_mess_t));
-  emit resultReady(rx_buffer);
-  return rx_buffer;
-}
 
 
 bool HID_Interface::write(const master_mess_t &mess)

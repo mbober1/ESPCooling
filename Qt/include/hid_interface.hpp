@@ -1,9 +1,10 @@
-#ifndef HID_INTERFACE_HPP
-#define HID_INTERFACE_HPP
+#pragma once
 
 #include <hidapi/hidapi.h>
 #include <string>
-#include "src/thread.hpp"
+#include <QtCore>
+#include "include/thread.hpp"
+
 #define MAX_STR 255
 
 
@@ -24,18 +25,13 @@ typedef struct
 
 
 
-
-
-
-
 class HID_Interface : public QObject
 {
-    Q_OBJECT
-    hid_device *handle;
-    Thread workerThread;
-    unsigned short vendor_id;
-    unsigned short product_id;
-    bool connected;
+  Q_OBJECT
+  unsigned short vendor_id;
+  unsigned short product_id;
+  bool connected;
+  hid_device *handle;
 
 
 public:
@@ -46,18 +42,14 @@ public:
   std::string get_serial_number();
   slave_mess_t read();
   bool open();
-  void run();
+
 
 
 public slots:
   bool write(const master_mess_t &mess);
 
 signals:
-    void resultReady(const slave_mess_t &result);
-    void connection_status(bool status);
+  void resultReady(const slave_mess_t &result);
+  void connection_status(bool status);
 
 };
-
-
-
-#endif // HID_INTERFACE_HPP

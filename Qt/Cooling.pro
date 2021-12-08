@@ -17,7 +17,7 @@ HEADERS += \
     include/aboutdialog.h \
     include/serial.hpp \
     include/hid_interface.hpp \
-    src/thread.hpp
+    include/thread.hpp
 
 FORMS += \
     uic/mainwindow.ui \
