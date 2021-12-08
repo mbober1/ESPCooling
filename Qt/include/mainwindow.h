@@ -7,10 +7,16 @@
 #include "aboutdialog.h"
 #include <QtSerialPort>
 #include "serial.hpp"
+#include "include/hid_interface.hpp"
 
 #include <QCloseEvent>
 #include <QSystemTrayIcon>
 #include <QAction>
+
+
+
+#define VENDOR_ID 0x483
+#define PRODUCT_ID 0x91D1
 
 
 QT_BEGIN_NAMESPACE
@@ -29,27 +35,26 @@ public:
     ~MainWindow();
 
 public slots:
-    void actionConnect();
-    void actionDisconnect();
     void github();
     void about();
     void turbo();
     void quiet();
     void off();
-    void cpuSpeed(int speed);
+//    void cpuSpeed(int speed);
     void cpuPercentage(int percentage);
-    void gpuSpeed(int speed);
+//    void gpuSpeed(int speed);
     void gpuPercentage(int percentage);
     void connectedMode(bool state);
+    void updateData(const slave_mess_t &data);
+    void sendData();
 
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void shutdown();
     void setup_tray();
-    void autoconnect();
 private:
 
     Ui::MainWindow *ui;
-    Serial *device;
+    HID_Interface *device;
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
