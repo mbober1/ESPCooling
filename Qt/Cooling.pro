@@ -12,6 +12,7 @@ SOURCES += \
     src/thread.cpp
 
 HEADERS += \
+    include/data_types.hpp \
     include/mainwindow.h \
     include/connectiondialog.h \
     include/aboutdialog.h \

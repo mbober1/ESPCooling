@@ -4,24 +4,12 @@
 #include <string>
 #include <QtCore>
 #include "include/thread.hpp"
+#include "include/data_types.hpp"
 
 #define MAX_STR 255
 
 
-typedef struct
-{
-  uint16_t cpu_setpoint;
-  uint16_t gpu_setpoint;
 
-} master_mess_t;
-
-
-typedef struct
-{
-  uint16_t cpu_fan_speed;
-  uint16_t gpu_fan_speed;
-
-} slave_mess_t;
 
 
 
@@ -30,7 +18,6 @@ class HID_Interface : public QObject
   Q_OBJECT
   unsigned short vendor_id;
   unsigned short product_id;
-  bool connected;
   hid_device *handle;
 
 
@@ -43,13 +30,12 @@ public:
   slave_mess_t read();
   bool open();
 
+  bool connected;
+
+
 
 
 public slots:
   bool write(const master_mess_t &mess);
-
-signals:
-  void resultReady(const slave_mess_t &result);
-  void connection_status(bool status);
 
 };

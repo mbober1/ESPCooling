@@ -31,7 +31,6 @@ bool HID_Interface::open()
     printf("CONNECTED!\n");
   }
 
-  // emit connection_status(this->connected);
   return this->connected;
 }
 
@@ -66,25 +65,17 @@ std::string HID_Interface::get_serial_number()
 }
 
 
+slave_mess_t HID_Interface::read()
+{
+  slave_mess_t rx_buffer;
+  hid_read(handle, (unsigned char *)&rx_buffer, sizeof(slave_mess_t));
+  // emit resultReady(rx_buffer);
+  return rx_buffer;
+}
+
 
 bool HID_Interface::write(const master_mess_t &mess)
 {
   unsigned char* tx_buffer_ptr = (unsigned char*)&mess;
   return hid_write(this->handle, tx_buffer_ptr, sizeof(master_mess_t));
 }
-
-//void Worker::run(HID_Interface &device)
-//{
-
-//    printf("dowork\n");
-//    while (!device.open())
-//    {
-//        QThread::sleep(1);
-//    }
-
-//    while (true)
-//    {
-//        device.read();
-//    }
-
-//}

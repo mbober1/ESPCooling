@@ -1,9 +1,6 @@
 #include "include/thread.hpp"
 
 
-
-
-
 void Thread::run()
 {
   HID_Interface device(VENDOR_ID, PRODUCT_ID);
@@ -16,7 +13,8 @@ void Thread::run()
   while (true)
   {
     qDebug() << "From worker thread: " << currentThreadId();
-//    device.read();
+    auto data = device.read();
+    
   }
 
 }
