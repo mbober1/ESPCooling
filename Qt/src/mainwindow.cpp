@@ -1,5 +1,8 @@
 #include "include/mainwindow.h"
 #include "ui_mainwindow.h"
+#include "include/profile_dialog.hpp"
+
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,25 +16,20 @@ MainWindow::MainWindow(QWidget *parent)
     setup_tray();
     autoconnect();
 
-
     connect(ui->actionConnect, &QAction::triggered, this, &MainWindow::actionConnect);
     connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::actionDisconnect);
+    connect(ui->actionEdit_profiles, &QAction::triggered, this, &MainWindow::actionEdit_profiles);
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::shutdown);
     connect(ui->actionGitHub, &QAction::triggered, this, &MainWindow::github);
     connect(ui->actionAbout_this_app , &QAction::triggered, this, &MainWindow::about);
-    connect(device, &Serial::cpuSpeedChanged, this,  &MainWindow::cpuSpeed);
-    connect(device, &Serial::gpuSpeedChanged, this,  &MainWindow::gpuSpeed);
-    connect(device, &Serial::cpuPercentageChanged, this,  &MainWindow::cpuPercentage);
-    connect(device, &Serial::gpuPercentageChanged, this,  &MainWindow::gpuPercentage);
+    connect(device, &Serial::new_fan_status, this,  &MainWindow::update_fan_status);
     connect(ui->cpuSlider, &QAbstractSlider::valueChanged, device, &Serial::setCpuFanSpeed);
     connect(ui->gpuSlider, &QAbstractSlider::valueChanged, device, &Serial::setGpuFanSpeed);
     connect(ui->turboButton, &QAbstractButton::pressed, this, &MainWindow::turbo);
     connect(ui->quietButton, &QAbstractButton::pressed, this, &MainWindow::quiet);
     connect(ui->offButton, &QAbstractButton::pressed, this, &MainWindow::off);
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
-
 }
-
 
 
 void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
@@ -97,21 +95,21 @@ void MainWindow::setup_tray()
 }
 
 
-void MainWindow::autoconnect()
+/**
+ * Connect to device.
+ */
+bool MainWindow::autoconnect()
 {
     QString devicePort = device->findKnownDevice(device->getDevices());
+    bool status = false;
 
     if(!devicePort.isEmpty())
     {
-        if(device->connect(devicePort))
-        {
-            this->connectedMode(true);
-        }
+        status = device->connect(devicePort);
     }
-    else
-    {
-        this->connectedMode(false);
-    }
+
+    this->connectedMode(status);
+    return status;
 }
 
 
@@ -132,31 +130,40 @@ MainWindow::~MainWindow()
 
 
 /**
- * Connect to server slot.
+ * Connect to device.
  */
-void MainWindow::actionConnect() {
-    ConnectionDialog dialog(device->getDevices());
-    dialog.setModal(true);
-    if(dialog.exec() == QDialog::Accepted) {
-        if(device->connect(dialog.getAdress())) {
-            this->connectedMode(true);
-            return;
-        }
-    }
-    this->connectedMode(false);
+void MainWindow::actionConnect()
+{
+    autoconnect();
 }
 
 
-void MainWindow::actionDisconnect() {
+/**
+ * Disconnect from device.
+ */
+void MainWindow::actionDisconnect()
+{
     this->device->disconnect();
     this->connectedMode(false);
+}
+
+void MainWindow::actionEdit_profiles()
+{
+    profile_dialog dialog(this);
+    dialog.setModal(true);
+
+    if(dialog.exec() == QDialog::Accepted)
+    {
+        dialog.save_file();
+    }
 }
 
 
 /**
  * Open github link in browser
  */
-void MainWindow::github() {
+void MainWindow::github()
+{
     QDesktopServices::openUrl(QUrl("https://github.com/mbober1/ESPCooling", QUrl::TolerantMode));
 }
 
@@ -164,13 +171,15 @@ void MainWindow::github() {
 /**
  * Display the popup about dialog 
  */
-void MainWindow::about() {
+void MainWindow::about()
+{
     AboutDialog dialog;
     dialog.setModal(true);
     dialog.exec();
 }
 
-void MainWindow::connectedMode(bool state) {
+void MainWindow::connectedMode(bool state)
+{
     ui->actionConnect->setVisible(!state);
     ui->actionDisconnect->setVisible(state);
     ui->actionDisconnect->setEnabled(state);
@@ -191,41 +200,41 @@ void MainWindow::connectedMode(bool state) {
     ui->quietButton->setEnabled(state);
     ui->offButton->setEnabled(state);
 
-    this->cpuSpeed(0);
-    this->cpuPercentage(0);
-    this->gpuSpeed(0);
-    this->gpuPercentage(0);
+    this->update_fan_status(Status_t());
 }
 
-void MainWindow::cpuSpeed(int speed) {
-    QString text = QString::number(speed) + QString(" RPM");
-    ui->cpuLcd->setText(text);
-}
 
-void MainWindow::gpuSpeed(int speed) {
-    QString text = QString::number(speed) + QString(" RPM");
-    ui->gpuLcd->setText(text);
-}
-
-void MainWindow::cpuPercentage(int percentage) {
-    ui->cpuProgressBar->setValue(percentage);
-}
-
-void MainWindow::gpuPercentage(int percentage) {
-    ui->gpuProgressBar->setValue(percentage);
-}
-
-void MainWindow::turbo() {
+void MainWindow::turbo()
+{
     ui->cpuSlider->setValue(100);
     ui->gpuSlider->setValue(100);
 }
 
-void MainWindow::quiet() {
+
+void MainWindow::quiet()
+{
     ui->cpuSlider->setValue(30);
     ui->gpuSlider->setValue(30);
 }
 
-void MainWindow::off() {
+
+void MainWindow::off()
+{
     ui->cpuSlider->setValue(0);
     ui->gpuSlider->setValue(0);
+}
+
+
+void MainWindow::update_fan_status(Status_t status)
+{
+    QString text;
+
+    text = QString::number(status.cpu.frequency) + QString(" RPM");
+    ui->cpuLcd->setText(text);
+
+    text = QString::number(status.gpu.frequency) + QString(" RPM");
+    ui->gpuLcd->setText(text);
+
+    ui->cpuProgressBar->setValue(status.cpu.duty);
+    ui->gpuProgressBar->setValue(status.gpu.duty);
 }

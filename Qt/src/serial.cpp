@@ -1,12 +1,14 @@
 #include "include/serial.hpp"
-
+#include "include/types.h"
 
 /**
  * A constructor.
  */
-Serial::Serial(QWidget *parent)
+Serial::Serial()
 {
     this->device = new QSerialPort();
+    this->manual_mess = {};
+    this->manual_mess.type = MANUAL;
 }
 
 
@@ -37,71 +39,60 @@ bool Serial::connect(const QString &name) {
 }
 
 
-void Serial::disconnect() {
+void Serial::disconnect()
+{
     this->device->close();
 }
 
 
 void Serial::readFromPort() {
-    static std::string buffer;
-
+    QByteArray buffer;
     buffer.append(this->device->readAll());
+    char *raw_buffer = buffer.data();
+    switch (buffer[0])
+    {
+      case STATUS:
+      {
+        uint message_size = sizeof(Status_mess_t);
 
-    int packetSeparator = buffer.find(";");
-
-    while (packetSeparator != std::string::npos) {
-        if(packetSeparator == 0) {
-            buffer.erase(0,1);
-            packetSeparator = buffer.find(";");
-            if(packetSeparator == std::string::npos) break;
-        }
-
-        std::string packet = buffer.substr(0, packetSeparator);
-        buffer.erase(0, packetSeparator+1);
-        packetSeparator = buffer.find(";");
-
-        char type = packet.at(0);
-
-        switch (type)
+        if (buffer.size() >= message_size)
         {
-        case 'C': {  // get fan1 speed
-            packet.erase(0, 1);
-            emit cpuSpeedChanged(std::atoi(packet.c_str()));
-            break;
+          Status_mess_t* frame_ptr = (Status_mess_t*)raw_buffer;
+          buffer.remove(0, message_size);
+          emit new_fan_status(frame_ptr->status);
         }
 
-        case 'G': {  // get fan2 speed
-            packet.erase(0, 1);
-            emit gpuSpeedChanged(std::atoi(packet.c_str()));
-            break;
-        }
+        break;
+      }
 
-        case 'S': {  // get fan1 percentage
-            packet.erase(0, 1);
-            emit cpuPercentageChanged(std::atoi(packet.c_str()));
-            break;
-        }
-
-        case 'T': {  // get fan2 percentage
-            packet.erase(0, 1);
-            emit gpuPercentageChanged(std::atoi(packet.c_str()));
-            break;
-        }
-        
-        default:
-            break;
-        }
+    default:
+    {
+        buffer.remove(0,1);
     }
+
+    }
+
 }
 
-QList<QSerialPortInfo> Serial::getDevices() {
+
+QList<QSerialPortInfo> Serial::getDevices()
+{
     return QSerialPortInfo::availablePorts();
 }
 
-QString Serial::findKnownDevice(QList<QSerialPortInfo> devices) {
-    for (size_t i = 0; i < devices.count(); i++)
+
+QString Serial::findKnownDevice(QList<QSerialPortInfo> devices)
+{
+    for (int i = 0; i < devices.count(); i++)
     {
-        if(devices.at(i).manufacturer() == "Silicon Labs" && devices.at(i).productIdentifier() == 60000 && devices.at(i).vendorIdentifier() == 4292) {
+        QString manufacturer = devices.at(i).manufacturer();
+        quint16 productIdentifier = devices.at(i).productIdentifier();
+        quint16 vendorIdentifier = devices.at(i).vendorIdentifier();
+
+        if( manufacturer == DEVICE_MANUFACTURER &&
+            productIdentifier == DEVICE_ID &&
+            vendorIdentifier == VENDOR_ID)
+        {
             return devices.at(i).portName();
         }
     }
@@ -109,24 +100,27 @@ QString Serial::findKnownDevice(QList<QSerialPortInfo> devices) {
 }
 
 
-void Serial::sendMessageToDevice(QString message) {
-    if(this->device->isOpen() && this->device->isWritable()) {
-        this->device->write(message.toStdString().c_str());
+void Serial::sendMessageToDevice()
+{
+    if(this->device->isOpen() && this->device->isWritable())
+    {
+        char* mess_ptr = (char*)&(this->manual_mess);
+        this->device->write(mess_ptr, sizeof(Manual_mess_t));
     }
 }
 
 
-void Serial::setCpuFanSpeed(int percentage) {
-    QString message("P");
-    message.append(QString::number(percentage));
-    message.append(";");
-    this->sendMessageToDevice(message);
+void Serial::setCpuFanSpeed(int percentage)
+{
+    this->manual_mess.profile.cpu_fan = percentage;
+    this->manual_mess.profile.led.blue = percentage;
+    this->sendMessageToDevice();
 }
 
 
-void Serial::setGpuFanSpeed(int percentage) {
-    QString message("W");
-    message.append(QString::number(percentage));
-    message.append(";");
-    this->sendMessageToDevice(message);
+void Serial::setGpuFanSpeed(int percentage)
+{
+    this->manual_mess.profile.gpu_fan = percentage;
+    this->manual_mess.profile.led.red = percentage;
+    this->sendMessageToDevice();
 }

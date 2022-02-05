@@ -5,6 +5,7 @@ CONFIG += c++11
 SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
+    src/profile_dialog.cpp \
     src/connectiondialog.cpp \
     src/aboutdialog.cpp \
     src/serial.cpp
@@ -13,9 +14,12 @@ HEADERS += \
     include/mainwindow.h \
     include/connectiondialog.h \
     include/aboutdialog.h \
-    include/serial.hpp
+    include/types.h \
+    include/serial.hpp \
+    include/profile_dialog.hpp
 
 FORMS += \
+    uic/profile_dialog.ui \
     uic/mainwindow.ui \
     uic/connectiondialog.ui \
     uic/aboutdialog.ui

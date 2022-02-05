@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QtSerialPort>
 #include <QTextList>
+#include "types.h"
 
 QT_BEGIN_NAMESPACE
 class QSerialPort;
@@ -26,7 +27,7 @@ class Serial : public QObject
     Q_OBJECT
 
 public:
-    explicit Serial(QWidget *parent = nullptr);
+    explicit Serial();
     ~Serial();
     bool connect(const QString &name);
     void disconnect();
@@ -40,13 +41,11 @@ public slots:
     void setGpuFanSpeed(int percentage);
 
 signals:
-    void cpuSpeedChanged(int speed);
-    void gpuSpeedChanged(int speed);
-    void cpuPercentageChanged(int speed);
-    void gpuPercentageChanged(int speed);
+    void new_fan_status(Status_t status);
 
 private:
-    void sendMessageToDevice(QString message);
+    void sendMessageToDevice();
+    Manual_mess_t manual_mess;
 };
 
 #endif // SERIAL_H

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>320</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,21 +25,109 @@
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>320</height>
+    <height>300</height>
    </size>
   </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="Highlight">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>229</red>
+        <green>165</green>
+        <blue>10</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Link">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>248</red>
+        <green>228</green>
+        <blue>92</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="LinkVisited">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>249</red>
+        <green>240</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Highlight">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>246</red>
+        <green>211</green>
+        <blue>45</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Link">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>248</red>
+        <green>228</green>
+        <blue>92</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="LinkVisited">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>249</red>
+        <green>240</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Highlight">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>249</red>
+        <green>240</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Link">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>248</red>
+        <green>228</green>
+        <blue>92</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="LinkVisited">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>249</red>
+        <green>240</green>
+        <blue>107</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
+  </property>
   <property name="windowTitle">
-   <string>ESPCooling</string>
+   <string>BeaverCooling</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/resources.qrc">
     <normaloff>:/icon/icons/fan.png</normaloff>:/icon/icons/fan.png</iconset>
   </property>
   <property name="windowOpacity">
-   <double>0.960000000000000</double>
-  </property>
-  <property name="tabShape">
-   <enum>QTabWidget::Triangular</enum>
+   <double>1.000000000000000</double>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -48,7 +136,7 @@
       <x>10</x>
       <y>0</y>
       <width>381</width>
-      <height>250</height>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -74,7 +162,6 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -106,7 +193,7 @@
             <bool>false</bool>
            </property>
            <property name="maximum">
-            <number>100</number>
+            <number>99</number>
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -127,7 +214,6 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -151,7 +237,6 @@
         <widget class="QProgressBar" name="cpuProgressBar">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -184,7 +269,6 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -216,7 +300,7 @@
             <bool>false</bool>
            </property>
            <property name="maximum">
-            <number>100</number>
+            <number>99</number>
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -237,7 +321,6 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -304,7 +387,6 @@
         <widget class="QProgressBar" name="gpuProgressBar">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -324,7 +406,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>35</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuConnection">
@@ -334,6 +416,7 @@
     <addaction name="actionConnect"/>
     <addaction name="actionDisconnect"/>
     <addaction name="separator"/>
+    <addaction name="actionEdit_profiles"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -396,6 +479,11 @@
    </property>
    <property name="text">
     <string>GitHub</string>
+   </property>
+  </action>
+  <action name="actionEdit_profiles">
+   <property name="text">
+    <string>Edit profiles</string>
    </property>
   </action>
  </widget>

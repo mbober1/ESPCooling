@@ -31,21 +31,19 @@ public:
 public slots:
     void actionConnect();
     void actionDisconnect();
+    void actionEdit_profiles();
     void github();
     void about();
     void turbo();
     void quiet();
     void off();
-    void cpuSpeed(int speed);
-    void cpuPercentage(int percentage);
-    void gpuSpeed(int speed);
-    void gpuPercentage(int percentage);
+    void update_fan_status(Status_t status);
     void connectedMode(bool state);
 
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void shutdown();
     void setup_tray();
-    void autoconnect();
+    bool autoconnect();
 private:
 
     Ui::MainWindow *ui;
